@@ -23,30 +23,44 @@ struct ContentView: View {
             RectangleView(redValue: $redValue, greenValue: $greenValue, blueValue: $blueValue)
             
             // MARK: - Slider
-            
-            SliderView(value: $redValue, textFild: $redTextFild, textColor: .red)
-            
-            
-            SliderView(value: $greenValue, textFild: $greenTextFild, textColor: .green)
-            
-            
-            SliderView(value: $blueValue, textFild: $blueTextFild, textColor: .blue)
-            
+            HStack {
+                SliderView(value: $redValue, textColor: .red, colorSlider: .red)
+                ColorTextFild(value: $redTextFild)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                print("Click")
+                            }
+                        }
+                    }
+            }
+            HStack {
+                SliderView(value: $greenValue, textColor: .green, colorSlider: .green)
+                ColorTextFild(value: $greenTextFild)
+            }
+            HStack {
+                SliderView(value: $blueValue, textColor: .blue, colorSlider: .blue)
+                ColorTextFild(value: $blueTextFild)
+            }
             Spacer()
         }
         .padding()
+        .onAppear {
+           setValue(for: redTextFild, greenTextFild, blueTextFild)
+        }
     }
     
     private func string(from value: Double) -> String {
-        String(format: "%.2f", value)
+        String(format: "%.f", value)
     }
     
     private func setValue(for textFilds: String...) {
         textFilds.forEach { textFild in
             switch textFild {
-            case redTextFild: redTextFild = string(from: redValue)
-            case greenTextFild: greenTextFild = string(from: greenValue)
-            default: blueTextFild = string(from: blueValue)
+            case redTextFild: redTextFild = string(from: Double(Int(redValue * 255.0)))
+            case greenTextFild: greenTextFild = string(from: Double(Int(greenValue * 255.0)))
+            default: blueTextFild = string(from: Double(Int(blueValue * 255.0)))
             }
         }
     }

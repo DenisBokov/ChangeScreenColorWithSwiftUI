@@ -13,6 +13,9 @@ struct ColorTextFild: View {
     
     var body: some View {
         TextField("", text: $value)
+            .frame(width: 60)
+            .textFieldStyle(.roundedBorder)
+
     }
 }
 

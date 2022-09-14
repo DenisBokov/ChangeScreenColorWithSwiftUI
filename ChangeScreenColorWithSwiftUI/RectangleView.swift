@@ -17,11 +17,11 @@ struct RectangleView: View {
         VStack {
             Rectangle()
                 .frame(width: 350, height: 150)
-                .foregroundColor(Color(red: redValue, green: greenValue, blue: blueValue))
+                .foregroundColor(Color(red: redValue / 255, green: greenValue / 255.0, blue: blueValue / 255.0))
             .cornerRadius(20)
-            Text("R: \(Int(redValue * 255.0))"
-                 + "  G: \(Int(greenValue * 255.0))"
-                 + "  B: \(Int(blueValue * 255.0))")
+            Text("R: \(lround(redValue))"
+                 + "  G: \(lround(greenValue))"
+                 + "  B: \(lround(blueValue))")
         }
     }
 }
